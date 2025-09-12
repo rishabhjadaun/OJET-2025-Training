@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Real-Time Text Binding</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+</head>
+<body>
+    <h2>Real-Time Text Binding</h2>
+
+    <input type="text" placeholder="Write Something" data-bind="value: message, valueUpdate: 'input'" />
+
+    <h1 data-bind="text: message"></h1>
+
+    <script>
+        function AppViewModel() {
+            this.message = ko.observable("");
+        }
+
+        ko.applyBindings(new AppViewModel());
+    </script>
+</body>
+</html>

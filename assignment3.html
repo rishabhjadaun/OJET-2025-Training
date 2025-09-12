@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Real-Time Calculator</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+</head>
+<body>
+  <h2>Real-Time Calculator</h2>
+
+  <label>Price: </label>
+  <input type="number" data-bind="value: price, valueUpdate: 'input'"><br><br>
+
+  <label>Quantity: </label>
+  <input type="number" data-bind="value: quantity, valueUpdate: 'input'"><br><br>
+
+  <h3>Total: <span data-bind="text: total"></span></h3>
+
+  <script>
+    function ViewModel() {
+      this.price = ko.observable(0);
+      this.quantity = ko.observable(0);
+      this.total = ko.computed(() => {
+        let p = parseFloat(this.price()) || 0;
+        let q = parseFloat(this.quantity()) || 0;
+        return p * q;
+      });
+    }
+    ko.applyBindings(new ViewModel());
+  </script>
+</body>
+</html>

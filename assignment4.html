@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Highlight</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+</head>
+<body>
+  <h2>Custom Binding Highlight</h2>
+
+  <div data-bind="highlight: isImportant">Important text</div>
+  <br>
+  <button data-bind="click: toggleHighlight">Toggle Highlight</button>
+
+  <script>
+    ko.bindingHandlers.highlight = {
+      update: function(element, valueAccessor) {
+        var value = ko.unwrap(valueAccessor());
+        element.style.backgroundColor = value ? "yellow" : "";
+      }
+    };
+
+    function ViewModel() {
+      this.isImportant = ko.observable(false);
+      this.toggleHighlight = () => this.isImportant(!this.isImportant());
+    }
+
+    ko.applyBindings(new ViewModel());
+  </script>
+</body>
+</html>
