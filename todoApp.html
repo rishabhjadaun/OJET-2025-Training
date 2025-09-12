@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <h2>Todo App</h2>
+
+    <ul data-bind="foreach: todos">
+        <li>
+            <input type="checkbox" data-bind="checked: completed, click: $parent.toggleCompletion.bind($parent, $data)" />
+            <span data-bind="text: id"></span>
+            <span data-bind="text: task, css: { completed: completed }"></span>
+            <button data-bind="click: $parent.removeTodo.bind($parent, $data)">Delete</button>
+        </li>
+    </ul>
+    <input type="text" data-bind="value: newTask, valueUpdate: 'afterkeydown'" placeholder="New task" />
+    <button data-bind="click: addTodo">Add</button>
+    <script>
+        class Todo {
+            constructor({id, task, completed}) {
+                this.id = id;
+                this.task = ko.observable(task);
+                this.completed = ko.observable(completed);
+            }
+        }
+
+        function TodoViewModel() {
+            this.todos = ko.observableArray([]);
+            this.newTask = ko.observable("");
+
+            const API = "http://localhost:3000" || "https://jsonplaceholder.typicode.com/todos";
+
+            this.loadTodos = () => {
+                fetch(API + "/todos")
+                    .then(response => response.json())
+                    .then(data => {
+                        const mappedTodos = data.map(item => new Todo(item));
+                        this.todos(mappedTodos);
+                    })
+                    .catch(error => console.error("Error fetching todos:", error));
+            };
+
+            this.addTodo = () => {
+                const task = this.newTask().trim();
+                if (task) {
+                    const newTodo = { task };
+                    fetch(API + "/todos", {
+                        method: "POST",
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify(newTodo)
+                    })
+                    .then(response => response.json())
+                    .then(ok => {
+                        this.loadTodos();
+                        this.newTask("");
+                    })
+                    .catch(error => console.error("Error adding todo:", error));
+                }
+            };
+
+            this.removeTodo = (todo) => {
+                this.todos.remove(todo);
+            };
+
+            this.toggleCompletion = (todo) => {
+                todo.completed = !todo.completed;
+                this.todos.valueHasMutated(); 
+            };
+            this.loadTodos();
+        }
+        ko.applyBindings(new TodoViewModel());
+    </script>
+</body>
+</html>

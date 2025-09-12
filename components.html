@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+    <title>Document</title>
+    
+</head>
+<body>
+    <h2>Todos</h2>
+    <todo-item params="title: 'Learn OJET'"></todo-item>
+    <todo-item params="title: 'Learn Java'"></todo-item>
+    <todo-item params="title: 'Learn Js'"></todo-item>
+
+    <script>
+        ko.components.register('todo-item', {
+            viewModel: function(params) {
+                this.title = params.title;
+            },
+            template: `<li data-bind="text: title"></li>`,
+        });
+
+        ko.applyBindings();
+    </script>
+</body>
+</html>

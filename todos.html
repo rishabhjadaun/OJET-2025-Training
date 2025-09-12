@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+  </head>
+  <body>
+    <input type="text" data-bind="value: newTask, valueUpdate: 'afterkeydown'" placeholder="New task" />
+    <button data-bind="click: addTask">Add Task</button>
+    <ul data-bind="foreach: tasks">
+        <li>
+            <input type="checkbox" data-bind="checked: isDone" />
+            <span data-bind="text: title, css: { done: isDone }"></span>
+        </li>
+    </ul>
+    <script>
+
+        class Task1{
+            constructor(title) {
+                this.title = ko.observable(title);
+                this.isDone = ko.observable(false);
+            }
+        }
+
+
+        function TodoViewModel() {
+            this.tasks = ko.observableArray([]);
+            this.newTask = ko.observable("");
+
+            this.addTask = () => {
+                if (this.newTask()) {
+                    this.tasks.push(new Task1(this.newTask()));
+                    this.newTask("");
+                }
+            }
+        }
+        function TodoViewModel1() {
+            this.tasks = ko.observableArray([]);
+            this.newTask = ko.observable("");
+
+            this.addTask = () => {
+                if (this.newTask()) {
+                    this.tasks.push(new Task1(this.newTask()));
+                    this.newTask("");
+                }
+            }
+        }
+        ko.applyBindings(new TodoViewModel());
+        ko.applyBindings(new TodoViewModel1());
+    </script>
+  </body>
+</html>

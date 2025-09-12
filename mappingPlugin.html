@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <h2>User Profile</h2>
+    <p>ID: <span data-bind="text: id"></span></p>
+    <p>Name: <span data-bind="text: details.name"></span></p>
+    <p>Age: <span data-bind="text: details.age"></span></p>
+    <script>
+        const rawData = {
+            id: 1,
+            details: {
+                name: "Anil",
+                age: 32
+            }
+        }
+
+        const mapping = {
+            'details': {
+                create: function(options) {
+                    return ko.mapping.fromJS(options.data);
+                }
+            }
+        }
+         
+        const viewModel = ko.mapping.fromJS(rawData, mapping);
+        ko.applyBindings(viewModel);
+    </script>
+</body>
+</html>
