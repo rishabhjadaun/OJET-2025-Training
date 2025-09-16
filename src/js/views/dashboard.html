@@ -1,0 +1,97 @@
+<!--
+ Copyright (c) 2014, 2025, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-hybrid-padding">
+  <h1>Dashboard Content Area</h1>
+  <div>
+    <div id="demo-container">
+            <oj-drawer-layout start-opened="{{startOpened}}" class="demo-full-height">
+              <div class="demo-padding">
+                <div class="demo-controls">
+                  <oj-button id="buttonOpener" display="icons" on-oj-action="[[startToggle]]">
+                    <span slot="startIcon" class="oj-ux-ico-menu"></span>
+                    Start
+                  </oj-button>
+                </div>
+                <oj-bind-dom config="[[ config ]]"></oj-bind-dom>
+                
+                <oj-button id="button1" on-oj-action="[[clickListener1]]">Click me!</oj-button>
+                <button id="button2" on-click="[[clicklistener2]]">Click me</button>
+                <oj-bind-text value="[[message]]"></oj-bind-text>
+                <h4 :style.color="[[myColor]]">List of Users</h4>
+            <oj-button id="addPerson" class="oj-button-sm" on-oj-action="[[addUser]]">Add User</oj-button>
+            <ul>
+              <oj-bind-for-each data="[[dataProvider]]">
+                <template>
+                  <li class="oj-flex oj-sm-align-items-center">
+                    <oj-bind-if test="[[showAnotherValue]]">
+                      <oj-bind-text value="[[$current.observableIndex]]"></oj-bind-text> :
+                    </oj-bind-if>
+                    <oj-bind-text value="[[$current.data.name]]"></oj-bind-text>
+                    <oj-button
+                      class="oj-button-sm oj-sm-margin-1x-vertical"
+                      chroming="borderless"
+                      display="icons"
+                      on-oj-action="[[removeUser]]">
+                      <span slot="startIcon" class="oj-ux-ico-close"></span>
+                      Remove
+                    </oj-button>
+                  </li>
+                </template>
+                <template slot="noData">
+                  <div class="oj-typography-body-md oj-typography-bold oj-sm-padding-2x-top">
+                    No Users to display
+                  </div>
+                </template>
+              </oj-bind-for-each>
+            </ul>
+              </div>
+         <div slot="start" class="demo-drawer-start" id="demo-drawer-start">
+                <div class="demo-drawer-header">
+                  <div>
+                    <h6>Welcome</h6>
+                  </div>
+                  <oj-button
+                    id="buttonCloser"
+                    display="icons"
+                    chroming="borderless"
+                    on-oj-action="[[startToggle]]">
+                    <span slot="startIcon" class="oj-ux-ico-close"></span>
+                    Close
+                  </oj-button>
+                </div>
+                <oj-navigation-list>
+                  <ul>
+                    <li id="one"><a href="/">Dashboard</a></li>
+                    <li><a href="?ojr=incidents">Incidents</a></li>
+                    <li><a href="?ojr=customers">Customers</a></li>
+                    <li><a href="?ojr=about">About</a></li>
+                  </ul>
+                </oj-navigation-list>
+              </div>
+            </oj-drawer-layout>
+    To change the content of this section, you will make edits to the
+    dashboard.html file located in the /js/views folder.
+    <oj-c-checkbox id="enabledCheckboxOn" value="true"
+      >Enabled value true</oj-c-checkbox
+    >
+    <oj-input-text
+      id="text-input"
+      value="{{value}}"
+      label-hint="Name"
+      label-edge="inside"
+    ></oj-input-text>
+
+    <oj-button id="button1" on-oj-action="[[submitname]]">Submit</oj-button>
+    <oj-bind-text value="[[value]]"></oj-bind-text>
+
+    <div id="collapsiblePage" data-oj-binding-provider="none">
+      <oj-collapsible id="c1">
+        <h3 id="h" slot="header">Header 3</h3>
+        <p id="c">I'm a Collapsible.</p>
+      </oj-collapsible>
+    </div>
+  </div>
+</div>

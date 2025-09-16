@@ -1,0 +1,22 @@
+<div class="oj-hybrid-padding">
+    <h1>Login Form</h1>
+    <div>
+        <oj-form-layout direction="column" max-columns="1" label-edge="top">
+            <!-- Name -->
+            <oj-label for="name">Name</oj-label>
+            <oj-input-text id="name" value="{{userName}}" placeholder="Enter your name"></oj-input-text>
+
+            <!-- Email -->
+            <oj-label for="email">Email</oj-label>
+            <oj-input-text id="email" value="{{userEmail}}" type="email" placeholder="Enter your email"></oj-input-text>
+
+            <!-- Password -->
+            <oj-label for="password">Password</oj-label>
+            <oj-input-password id="password" value="{{userPassword}}" label-hint="password"
+                ></oj-input-password>
+
+            <!-- Submit Button -->
+            <oj-button on-oj-action="[[submitLogin]]">Login</oj-button>
+        </oj-form-layout>
+    </div>
+</div>
