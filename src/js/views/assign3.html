@@ -1,8 +1,9 @@
 <div>
   <oj-input-text 
       label-hint="Enter your name" 
-      raw-value="{{userName}}" 
-      required="true">
+      value="{{userName}}" 
+      required="true"
+      on-raw-value-changed="[[onInputChange]]">
   </oj-input-text>
 
   <oj-button on-oj-action="[[submitForm]]" 

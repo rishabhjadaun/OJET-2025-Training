@@ -18,7 +18,7 @@ define(['../accUtils', 'knockout',
       self.userName = ko.observable("");
 
       self.isButtonDisabled = ko.computed(function () {
-        return !self.userName() || self.userName().trim().length === 0;
+        return self.userName().trim().length === 0;
       });
 
       self.submitForm = function () {
@@ -26,7 +26,12 @@ define(['../accUtils', 'knockout',
         alert("Hello " + self.userName());
         self.userName("");
       };
-      
+
+      self.onInputChange = function (event) {
+        // This will update the observable as the user types or clears the input
+        self.userName(event.detail.value);
+      };
+
       this.connected = () => {
         accUtils.announce('Customers page loaded.', 'assertive');
         document.title = "Assignment3";
